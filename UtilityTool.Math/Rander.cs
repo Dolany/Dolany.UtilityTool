@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Dolany.UtilityTool.Linq;
 
-namespace UtilityTool.Math
+namespace Dolany.UtilityTool.Math
 {
     public static class Rander
     {

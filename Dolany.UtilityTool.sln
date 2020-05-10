@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dolany.UtilityTool.Linq", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dolany.UtilityTool.Lambda", "Dolany.UtilityTool.Lambda\Dolany.UtilityTool.Lambda.csproj", "{DA1258FA-1F47-485C-AE18-82BD5709EEE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityTool.Math", "UtilityTool.Math\UtilityTool.Math.csproj", "{CDF537CD-DCBB-4A6B-9272-7B92D313C56E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dolany.UtilityTool.Math", "UtilityTool.Math\Dolany.UtilityTool.Math.csproj", "{CDF537CD-DCBB-4A6B-9272-7B92D313C56E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
