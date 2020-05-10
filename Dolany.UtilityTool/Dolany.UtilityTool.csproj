@@ -3,10 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
 	<PackageId>Dolany.UtilityTool</PackageId>
-	<Version>1.0.0</Version>
+	<Version>1.0.1</Version>
 	<Authors>Dolany</Authors>
 	<Company>DolanyTech</Company>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageProjectUrl>https://github.com/Dolany/Dolany.UtilityTool</PackageProjectUrl>
+	<Description>Dolany通用组件</Description>
+	<PackageReleaseNotes>更新重试函数</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
