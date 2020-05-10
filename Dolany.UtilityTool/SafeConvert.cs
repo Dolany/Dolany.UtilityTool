@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dolany.UtilityTool.Safety
+namespace Dolany.UtilityTool
 {
     public static class SafeConvert
     {

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
-using Dolany.UtilityTool.Linq;
 
-namespace Dolany.UtilityTool.Math
+namespace Dolany.UtilityTool
 {
     public static class Rander
     {

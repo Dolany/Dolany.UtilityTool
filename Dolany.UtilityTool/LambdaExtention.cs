@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading;
 
-namespace Dolany.UtilityTool.Lambda
+namespace Dolany.UtilityTool
 {
     public static class LambdaExtention
     {
-        public static TResult DoWithRetry<TResult>(this Func<TResult> RetryFunc, TimeSpan[] RetryIntervals, Predicate<TResult> ResulteChecker = null)
+        public static TResult DoWithRetry<TResult>(Func<TResult> RetryFunc, TimeSpan[] RetryIntervals, Predicate<TResult> ResulteChecker = null)
         {
             TResult result;
             var retryCount = 0;
@@ -28,7 +28,7 @@ namespace Dolany.UtilityTool.Lambda
             return result;
         }
 
-        private static bool DoWithRetry<TResult>(this Func<TResult> RetryFunc, out TResult Result, Predicate<TResult> ResulteChecker = null)
+        private static bool DoWithRetry<TResult>(Func<TResult> RetryFunc, out TResult Result, Predicate<TResult> ResulteChecker = null)
         {
             Result = default;
             try

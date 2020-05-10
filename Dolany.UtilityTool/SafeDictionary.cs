@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Dolany.UtilityTool.Linq;
 
-namespace Dolany.UtilityTool.Safety
+namespace Dolany.UtilityTool
 {
     /// <summary>
     /// 安全字典

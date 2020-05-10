@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+	<PackageId>Dolany.UtilityTool</PackageId>
+	<Version>1.0.0</Version>
+	<Authors>Dolany</Authors>
+	<Company>DolanyTech</Company>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+</Project>
