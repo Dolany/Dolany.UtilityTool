@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Dolany.UtilityTool
 {
@@ -36,10 +37,7 @@ namespace Dolany.UtilityTool
 
         public static void AddSafe<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key, TValue value)
         {
-            if (dic == null)
-            {
-                dic = new Dictionary<TKey, TValue>();
-            }
+            dic ??= new Dictionary<TKey, TValue>();
 
             if (key == null)
             {
@@ -54,6 +52,45 @@ namespace Dolany.UtilityTool
             {
                 dic.TryAdd(key, value);
             }
+        }
+
+        public static Dictionary<string, object> ObjectToDictionary<T>(this T obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            var type = obj.GetType();
+            var safeDic = SafeDictionary<string, object>.Empty;
+            foreach (var propertyInfo in type.GetProperties().Where(p => p.CanRead))
+            {
+                safeDic[propertyInfo.Name] = propertyInfo.GetValue(obj);
+            }
+
+            return safeDic.Data;
+        }
+
+        public static T DictionaryToObject<T>(this Dictionary<string, object> dic) where T : new()
+        {
+            if (dic.IsNullOrEmpty())
+            {
+                return default;
+            }
+
+            var type = typeof(T);
+            var result = new T();
+            foreach (var propertyInfo in type.GetProperties().Where(p => p.CanWrite))
+            {
+                if (!dic.ContainsKey(propertyInfo.Name))
+                {
+                    continue;
+                }
+
+                propertyInfo.SetValue(result, dic[propertyInfo.Name]);
+            }
+
+            return result;
         }
     }
 }
