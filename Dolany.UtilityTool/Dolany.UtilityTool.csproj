@@ -13,10 +13,20 @@
 2、优化随机算法</PackageReleaseNotes>
 	<AssemblyVersion>1.0.3.1</AssemblyVersion>
 	<FileVersion>1.0.3.1</FileVersion>
+	<PackageLicenseFile>License.txt</PackageLicenseFile>
+	<Copyright>Dolany</Copyright>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
