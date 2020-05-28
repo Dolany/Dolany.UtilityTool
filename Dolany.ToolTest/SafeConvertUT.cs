@@ -71,5 +71,47 @@ namespace Dolany.ToolTest
             Assert.AreEqual(0, obj.DField);
             Assert.AreEqual("20", obj.MethodProperty);
         }
+
+        [Test]
+        public void ToDateTimeSafe_LocalUT01()
+        {
+            var time = DateTime.Now.ToUniversalTime();
+
+            var convertedTime = time.ToDateTimeSafe_Local();
+
+            Assert.AreEqual(time.ToLocalTime(), convertedTime);
+        }
+
+        [Test]
+        public void ToDateTimeSafe_LocalUT02()
+        {
+            var time = DateTime.Now;
+
+            var convertedTime = time.ToDateTimeSafe_Local();
+
+            Assert.AreEqual(time, convertedTime);
+        }
+
+        [Test]
+        public void ToDateTimeSafe_LocalUT03()
+        {
+            var now = DateTime.Now;
+            var time = now.ToString("yyyy-MM-ddTHH:mm:ss");
+
+            var convertedTime = time.ToDateTimeSafe_Local();
+
+            Assert.AreEqual(time, convertedTime.ToString("yyyy-MM-ddTHH:mm:ss"));
+        }
+
+        [Test]
+        public void ToDateTimeSafe_LocalUT04()
+        {
+            var now = DateTime.Now;
+            var time = now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var convertedTime = time.ToDateTimeSafe_Local();
+
+            Assert.AreEqual(time, convertedTime.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
     }
 }

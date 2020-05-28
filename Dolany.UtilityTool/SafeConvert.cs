@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Dolany.UtilityTool
@@ -37,7 +38,12 @@ namespace Dolany.UtilityTool
         /// <returns>string类型的数值</returns>
         public static string ToStringSafe(this object obj)
         {
-            return obj == null ? string.Empty : obj.ToString();
+            return obj switch
+            {
+                null => string.Empty,
+                DateTime time => time.ToLocalTime().ToString("yyyy/m/dd HH:mm:ss"),
+                _ => obj.ToString()
+            };
         }
 
         /// <summary>
@@ -68,6 +74,30 @@ namespace Dolany.UtilityTool
         public static long ToLongSafe(this object obj)
         {
             return long.TryParse(obj.ToStringSafe(), out var result) ? result : 0;
+        }
+
+        /// <summary>
+        /// 将对象安全的转换为DateTime类型（转为本地时间）
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTimeSafe_Local(this object obj)
+        {
+            if (obj == null)
+            {
+                return DateTime.Now;
+            }
+
+            try
+            {
+                return obj is DateTime ? Convert.ToDateTime(obj).ToLocalTime() : Convert.ToDateTime(obj);
+            }
+            catch (Exception)
+            {
+                var str = obj.ToStringSafe().Substring(0, 19);
+                DateTime date;
+                return DateTime.TryParse(str, out date) ? date : DateTime.Now;
+            }
         }
 
         /// <summary>

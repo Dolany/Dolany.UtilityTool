@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dolany.UtilityTool
 {
@@ -110,6 +112,47 @@ namespace Dolany.UtilityTool
         public TAimType Get<TAimType>(TKey key) where TAimType: class
         {
             return this[key] as TAimType;
+        }
+
+        /// <summary>
+        /// 根据键获取DateTime类型的值（转为本地时间）
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public DateTime GetDateTime_Local(TKey key)
+        {
+            return this[key].ToDateTimeSafe_Local();
+        }
+
+        /// <summary>
+        /// 深度克隆
+        /// </summary>
+        /// <returns></returns>
+        public SafeDictionary<TKey, TValue> Clone()
+        {
+            return new SafeDictionary<TKey, TValue>(Data?.ToDictionary(p => p.Key, p => p.Value));
+        }
+
+        /// <summary>
+        /// 整合两个安全数组(如果有重复的键，则有值会覆盖左值)
+        /// </summary>
+        /// <param name="leftDic"></param>
+        /// <param name="rightDic"></param>
+        /// <returns></returns>
+        protected static SafeDictionary<TKey, TValue> Merge(SafeDictionary<TKey, TValue> leftDic, SafeDictionary<TKey, TValue> rightDic)
+        {
+            var result = leftDic.Clone();
+            if (rightDic.IsEmpty)
+            {
+                return result;
+            }
+
+            foreach (var (key, value) in rightDic.Data)
+            {
+                result[key] = value;
+            }
+
+            return result;
         }
     }
 }
