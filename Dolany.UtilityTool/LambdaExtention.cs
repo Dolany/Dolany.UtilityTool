@@ -3,6 +3,9 @@ using System.Threading;
 
 namespace Dolany.UtilityTool
 {
+    /// <summary>
+    /// Lambda的扩展方法
+    /// </summary>
     public static class LambdaExtention
     {
         /// <summary>

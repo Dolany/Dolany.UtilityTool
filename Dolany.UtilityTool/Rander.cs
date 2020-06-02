@@ -5,6 +5,9 @@ using System.Security.Cryptography;
 
 namespace Dolany.UtilityTool
 {
+    /// <summary>
+    /// 随机数
+    /// </summary>
     public static class Rander
     {
         private static readonly RNGCryptoServiceProvider RngCsp = new RNGCryptoServiceProvider();

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Dolany.UtilityTool
 {
+    /// <summary>
+    /// Linq扩展方法
+    /// </summary>
     public static class LinqExtention
     {
         /// <summary>
@@ -101,7 +106,101 @@ namespace Dolany.UtilityTool
         /// <exception cref="OutOfMemoryException"></exception>
         public static string JoinToString(this IEnumerable<string> strs, string spliter)
         {
-            return strs.IsNullOrEmpty() ? null : string.Join(spliter, strs);
+            var strList = strs.ToList();
+            return strList.IsNullOrEmpty() ? null : string.Join(spliter, strList);
+        }
+
+        /// <summary>
+        /// 异步All
+        /// </summary>
+        /// <typeparam name="TSource">元素类型</typeparam>
+        /// <param name="source">源集合</param>
+        /// <param name="predicate">判断表达式</param>
+        /// <returns>所有元素符合条件，则为true；否则为false</returns>
+        public static async Task<bool> AllAsync<TSource>(this IEnumerable<TSource> source, Func<TSource, Task<bool>> predicate)
+        {
+            foreach (var s in source)
+            {
+                if (!await predicate(s))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 异步Any
+        /// </summary>
+        /// <typeparam name="TSource">元素类型</typeparam>
+        /// <param name="source">源集合</param>
+        /// <param name="predicate">判断表达式</param>
+        /// <returns>有任一元素符合条件，则为true；否则为false</returns>
+        public static async Task<bool> AnyAsync<TSource>(this IEnumerable<TSource> source, Func<TSource, Task<bool>> predicate)
+        {
+            foreach (var s in source)
+            {
+                if (await predicate(s))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 并行处理
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="elements"></param>
+        /// <param name="parallelLimit"></param>
+        /// <param name="parallelFunc"></param>
+        /// <returns></returns>
+        public static async Task Parallel<T>(this List<T> elements, int parallelLimit, Func<T, Task> parallelFunc)
+        {
+            if (elements.IsNullOrEmpty())
+            {
+                return;
+            }
+            var queue = new ConcurrentQueue<T>();
+            foreach (var element in elements)
+            {
+                queue.Enqueue(element);
+            }
+
+            var tasks = Enumerable.Range(0, Math.Min(parallelLimit, elements.Count)).Select(async pi =>
+            {
+                T data;
+                while (queue.TryDequeue(out data))
+                {
+                    await parallelFunc(data);
+                }
+            });
+            await Task.WhenAll(tasks);
+        }
+
+        /// <summary>
+        /// 批量处理
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="elements"></param>
+        /// <param name="batchCount"></param>
+        /// <param name="batchAction"></param>
+        public static void BatchHandle<T>(this List<T> elements, int batchCount, Action<List<T>> batchAction)
+        {
+            if (elements.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            for (var i = 0; i < elements.Count; i += batchCount)
+            {
+                var length = Math.Min(elements.Count - i, batchCount);
+                var curList = elements.Skip(i).Take(length).ToList();
+                batchAction(curList);
+            }
         }
     }
 }

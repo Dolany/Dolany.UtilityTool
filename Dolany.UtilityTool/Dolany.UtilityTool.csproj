@@ -3,23 +3,27 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp5.0</TargetFramework>
 	<PackageId>Dolany.UtilityTool</PackageId>
-	<Version>1.0.3</Version>
+	<Version>1.1.0</Version>
 	<Authors>Dolany</Authors>
 	<Company>DolanyTech</Company>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageProjectUrl>https://github.com/Dolany/Dolany.UtilityTool</PackageProjectUrl>
 	<Description>Dolany通用组件，包含一些很实用的方法和类型，如随机数、安全字典等。</Description>
-	<PackageReleaseNotes>1、添加函数说明
-2、优化随机算法</PackageReleaseNotes>
-	<AssemblyVersion>1.0.3.1</AssemblyVersion>
-	<FileVersion>1.0.3.1</FileVersion>
+	<PackageReleaseNotes>1、添加并行处理和批量处理的方法
+2、添加异步的All和异步Any方法</PackageReleaseNotes>
+	<AssemblyVersion>1.1.0.0</AssemblyVersion>
+	<FileVersion>1.1.0.0</FileVersion>
 	<PackageLicenseFile>License.txt</PackageLicenseFile>
 	<Copyright>Dolany</Copyright>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>C:\Users\dolan\Source\Repos\Dolany\Dolany.UtilityTool\Dolany.UtilityTool\Dolany.UtilityTool.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Users\dolan\Source\Repos\Dolany\Dolany.UtilityTool\Dolany.UtilityTool\Dolany.UtilityTool.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
