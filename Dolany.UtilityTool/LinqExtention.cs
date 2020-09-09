@@ -202,5 +202,80 @@ namespace Dolany.UtilityTool
                 batchAction(curList);
             }
         }
+
+        /// <summary>
+        /// 并行处理
+        /// </summary>
+        /// <typeparam name="T">元素类型</typeparam>
+        /// <param name="elements">待处理数据</param>
+        /// <param name="parallelLimit">并行数量</param>
+        /// <param name="parallelFunc">并行处理函数</param>
+        /// <returns></returns>
+        public static async Task Parallel<T>(this List<T> elements, int parallelLimit, Func<T, Task> parallelFunc)
+        {
+            if (elements.IsNullOrEmpty())
+            {
+                return;
+            }
+            var queue = new ConcurrentQueue<T>();
+            foreach (var element in elements)
+            {
+                queue.Enqueue(element);
+            }
+
+            var tasks = Enumerable.Range(0, Math.Min(parallelLimit, elements.Count)).Select(async pi =>
+            {
+                while (queue.TryDequeue(out var data))
+                {
+                    await parallelFunc(data);
+                }
+            });
+            await Task.WhenAll(tasks);
+        }
+
+        /// <summary>
+        /// 批量处理
+        /// </summary>
+        /// <typeparam name="T">元素类型</typeparam>
+        /// <param name="elements">待处理数据</param>
+        /// <param name="batchCount">批量数量</param>
+        /// <param name="batchAction">批量处理函数</param>
+        public static void BatchHandle<T>(this List<T> elements, int batchCount, Action<List<T>> batchAction)
+        {
+            if (elements.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            for (var i = 0; i < elements.Count; i += batchCount)
+            {
+                var length = Math.Min(elements.Count - i, batchCount);
+                var curList = elements.Skip(i).Take(length).ToList();
+                batchAction(curList);
+            }
+        }
+
+        /// <summary>
+        /// 批量处理(异步)
+        /// </summary>
+        /// <typeparam name="T">元素类型</typeparam>
+        /// <param name="elements">待处理数据</param>
+        /// <param name="batchCount">批量数量</param>
+        /// <param name="batchFunc">批量处理函数</param>
+        /// <returns></returns>
+        public static async Task BatchHandleAsync<T>(this List<T> elements, int batchCount, Func<List<T>, Task> batchFunc)
+        {
+            if (elements.IsNullOrEmpty())
+            {
+                return;
+            }
+
+            for (var i = 0; i < elements.Count; i += batchCount)
+            {
+                var length = Math.Min(elements.Count - i, batchCount);
+                var curList = elements.Skip(i).Take(length).ToList();
+                await batchFunc(curList);
+            }
+        }
     }
 }
