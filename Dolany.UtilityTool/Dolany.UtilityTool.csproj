@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 	<PackageId>Dolany.UtilityTool</PackageId>
 	<Version>1.0.3</Version>
 	<Authors>Dolany</Authors>
@@ -10,13 +10,14 @@
 	<PackageProjectUrl>https://github.com/Dolany/Dolany.UtilityTool</PackageProjectUrl>
 	<Description>Dolany通用组件，包含一些很实用的方法和类型，如随机数、安全字典等。</Description>
 	<PackageReleaseNotes>将框架版本改为.net core3.1</PackageReleaseNotes>
-	<AssemblyVersion>1.0.4.0</AssemblyVersion>
-	<FileVersion>1.0.4.0</FileVersion>
+	<AssemblyVersion>1.1.2.0</AssemblyVersion>
+	<FileVersion>1.1.2.0</FileVersion>
 	<PackageLicenseFile>License.txt</PackageLicenseFile>
 	<Copyright>Dolany</Copyright>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<LangVersion>8</LangVersion>
-	<PackageVersion>1.0.4</PackageVersion>
+	<PackageVersion>1.1.2</PackageVersion>
+	<Nullable>warnings</Nullable>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
